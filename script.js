@@ -17,7 +17,12 @@ const schedules=[['09:00','19:00'],['09:00','19:00'],['09:00','19:00'],['09:00',
 function updateHours(){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts().filter(p=>p.type!=='literal').map(p=>[p.type,p.value]));const day=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].indexOf(parts.weekday);document.querySelectorAll('.hours-list>div').forEach((row,i)=>row.classList.toggle('today',i===day));const status=document.querySelector('.status');const schedule=schedules[day];const now=`${parts.hour}:${parts.minute}`;let label='Heute geschlossen',open=false;if(schedule&&now<schedule[0])label=`Öffnet um ${schedule[0]} Uhr`;else if(schedule&&now<schedule[1]){label='Jetzt geöffnet';open=true;}status.textContent=label;status.classList.toggle('is-open',open);}
 updateHours();setInterval(updateHours,60000);
 
-const lightbox=document.querySelector('.lightbox');const items=[...document.querySelectorAll('.gallery-item')];let active=0;
+const gallery=document.querySelector('.gallery-grid');
+const shuffledItems=[...gallery.querySelectorAll('.gallery-item')];
+for(let i=shuffledItems.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffledItems[i],shuffledItems[j]]=[shuffledItems[j],shuffledItems[i]];}
+shuffledItems.forEach((item,index)=>{item.style.setProperty('--i',index);gallery.append(item);});
+
+const lightbox=document.querySelector('.lightbox');const items=[...gallery.querySelectorAll('.gallery-item')];let active=0;
 function showImage(index){active=(index+items.length)%items.length;const source=items[active].querySelector('img');lightbox.querySelector('img').src=source.src;lightbox.querySelector('img').alt=source.alt;lightbox.querySelector('figcaption span').textContent=source.alt;lightbox.querySelector('figcaption b').textContent=`${active+1} / ${items.length}`;if(!lightbox.open)lightbox.showModal();}
 items.forEach((item,index)=>item.addEventListener('click',()=>showImage(index)));
 lightbox.querySelector('.lightbox-close').addEventListener('click',()=>lightbox.close());lightbox.querySelector('.lightbox-prev').addEventListener('click',()=>showImage(active-1));lightbox.querySelector('.lightbox-next').addEventListener('click',()=>showImage(active+1));
