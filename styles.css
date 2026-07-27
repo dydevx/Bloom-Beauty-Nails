@@ -75,6 +75,16 @@ footer{background:#2b2225;color:#fff;padding:5rem max(1.25rem,calc((100vw - 1280
 .lash-block .price-row{border-color:var(--line)}
 .lash-block .button{background:var(--rose-dark);border-color:var(--rose-dark);color:#fff}
 .lash-block .button:hover{background:#602335;border-color:#602335;color:#fff}
+.prices-grid>.service-feature{background:var(--surface);border-radius:var(--radius);display:grid;grid-column:1 / -1;grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:520px;overflow:hidden;width:100%}
+.service-photo{min-height:0;overflow:hidden;position:relative}
+.service-photo img{height:100%;inset:0;object-fit:cover;position:absolute;width:100%}
+.service-photo-pedicure img{object-position:50% 32%}
+.service-photo-lashes img{object-position:50% 42%}
+.service-photo-extras img{object-position:50% 46%}
+.service-content{align-self:center;min-width:0;padding:clamp(1.8rem,3vw,3.2rem)}
+.service-content>p{color:var(--muted);margin-bottom:1.5rem}
+.service-content .price-row{grid-template-columns:1fr auto}
+.service-content .text-link{margin-top:2rem}
 
 /* Plain HTML controls */
 .menu-toggle span{background:currentColor;display:block;height:2px;margin:6px 0;transition:transform .25s;width:25px}
@@ -92,6 +102,8 @@ footer{background:#2b2225;color:#fff;padding:5rem max(1.25rem,calc((100vw - 1280
 .video-grid video{aspect-ratio:9/13;background:#261c20;border-radius:var(--radius);object-fit:cover;width:100%}
 .video-grid figcaption{color:var(--ink);font-family:var(--serif);font-size:clamp(1.05rem,1.6vw,1.35rem);padding:.9rem .2rem 0}
 .video-grid figure:nth-child(2){transform:translateY(clamp(1.5rem,4vw,3.5rem))}
+
+@media(max-width:780px){.prices-grid>.service-feature{display:flex;flex-direction:column;height:auto}.service-feature-reverse .service-photo{order:-1}.service-photo{aspect-ratio:4/3}.service-photo img{height:100%;position:absolute}.service-photo-pedicure img{object-position:50% 28%}.service-photo-lashes img{object-position:50% 40%}.service-photo-extras img{object-position:50% 44%}.service-content{padding:1.6rem}}
 
 @media(prefers-reduced-motion:no-preference){
   .motion-ready .video-grid.in-view figure{animation:video-story-in .72s both cubic-bezier(.22,1,.36,1);animation-delay:calc(var(--i) * 90ms)}
